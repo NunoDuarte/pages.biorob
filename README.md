@@ -1,4 +1,4 @@
-# 3DSGrasp: 3D Shape-completion for robotic grasp
+# Learning the Sequence of Packing Irregular Objects from Human Demonstrations: Towards Autonomous Packing Robots
 
 ## Acknowledgments
 Parts of this project page were adopted from the [Academic-project-page-template](https://github.com/eliahuhorwitz/Academic-project-page-template) and [Nerfies](https://nerfies.github.io/) page.
