@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9097QXWNCZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-9097QXWNCZ');
+  </script>
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="This work addresses robust robotic grasping with incomplete 3D point cloud data. The proposed method, 3DSGrasp, predicts missing object geometry from partial point clouds to generate accurate grasp poses. It uses a Transformer-based encoder–decoder with an Offset-Attention layer, ensuring invariance to object pose and point ordering. Experiments show that 3DSGrasp produces more geometrically consistent point cloud completions than state-of-the-art methods and significantly improves real-world grasping success rates.">
+  <meta property="og:title" content="3DSGrasp: 3D Shape-completion for robotic grasp"/>
+  <meta property="og:description" content="3DSGrasp completes partial 3D point clouds using a Transformer-based model to infer missing geometry, enabling more accurate grasp poses and higher real-world robotic grasping success."/>
+  <meta property="og:url" content="https://nunoduarte.github.io/pages.3dsgrasp/"/>
+  <meta property="og:image" content="static/images/icub_interaction_banner.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="3DSGrasp: 3D Shape-completion for robotic grasp">
+  <meta name="twitter:description" content="3DSGrasp completes partial 3D point clouds using a Transformer-based model to infer missing geometry, enabling more accurate grasp poses and higher real-world robotic grasping success.">
+  <meta name="twitter:image" content="static/images/icub_interaction_banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>3DSGrasp</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+  >
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://nunoduarte.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+     <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+	  <a class="navbar-item" href="https://nunoduarte.github.io">
+            Measuring Uncertainty
+          </a>
+          <a class="navbar-item" href="https://mbortolon97.github.io/grasplat/">
+            GRASPLAT
+          </a>
+        </div>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns">
+          <div class="column is-three-fifths is-flex is-flex-wrap-wrap">
+                <img src="static/images/logo_isr.png" style="height: 80px;" alt="MY ALT TEXT"/>
+                <img src="static/images/logo_pavis.png" style="height: 80px;" alt="MY ALT TEXT"/>
+          </div>
+          <div class="column is-flex is-flex-direction-row-reverse is-flex-wrap-wrap">
+            <img src="static/images/logo_icra.png" style="height: 100px;" alt="MY ALT TEXT"/>
+              </div>
+        </div>
+        <div class="columns is-centered">
+
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">3DSGrasp: <br> 3D Shape-completion for robotic grasp</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=k92qc7AAAAAJ&hl=en&oi=sra" target="_blank">Seyed Saber Mohammadi</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://nunoduarte.github.io" target="_blank">Nuno Ferreira Duarte</a>,<sup>2</sup></span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=KBZ3zrEAAAAJ&hl=en" target="_blank">Yiming Wang</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=LnbKdaYAAAAJ&hl=en" target="_blank">Matteo Taiana</a><sup>1</sup>,</span>
+	          <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=lPV9rbkAAAAJ&hl=it" target="_blank">Pietro Morerio</a><sup>1</sup>,</span>
+	          <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=G9lcsWAAAAAJ&hl=en" target="_blank">Dimitrios Dimou</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=3eXycfEAAAAJ&hl=en" target="_blank">Atabak Dehban</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=p1ek5hgAAAAJ&hl=en" target="_blank">Plinio Moreno</a><sup>2</sup>,</span>
+			 <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=auFmh9MAAAAJ&hl=en" target="_blank">Alexandre Bernardino</a><sup>2</sup>,</span>
+		      <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=LUzvbGIAAAAJ&hl=en" target="_blank">Alessio Del Bue</a><sup>1</sup>,</span>
+			  <span class="author-block">
+                <a href="https://isr.tecnico.ulisboa.pt/author/josealbertorosado/" target="_blank">Jose Santos-Victor</a><sup>2</sup></span>
+		</div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>1</sup>IIT - Pattern Analysis and Computer Vision <sup>2</sup>ISR-Lisboa <br>IEEE International Conference on Robotics and Automation (ICRA 2023)</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://nunoduarte.github.io/projects/eg5/3DSGrasp_2023.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- IEEE link -->
+                    <span class="link-block">
+                      <a href="https://ieeexplore.ieee.org/document/10160350/" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>IEEE</span>
+                    </a>
+                  </span>
+
+                  <!-- Video link -->
+                  <span class="link-block">
+                    <a href="https://www.youtube.com/watch?v=i_v4EX_Nkls" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>YouTube</span>
+                  </a>
+                </span>
+
+                <!-- Github Link -->
+                <span class="link-block">
+                  <a href="https://github.com/NunoDuarte/3DSGrasp" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+     <center>
+      <video 
+        id="tree" 
+        playsinline 
+        webkit-playsinline 
+        muted 
+        loop 
+        autoplay="autoplay"
+        preload="auto"
+        height="100%"
+        <source src="https://res.cloudinary.com/dcj7wjo3u/video/upload/v1767103945/teaser_icra23_mo9lva.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+	 </center>
+     <h2 class="subtitle has-text-centered">
+		3DSGrasp completes partial 3D point clouds using a Transformer-based model to infer missing geometry, enabling more accurate grasp poses and higher real-world robotic grasping success.     </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+Real-world robotic grasping can be done robustly if a complete 3D Point Cloud Data (PCD) of an object is available. However, in practice, PCDs are often incomplete when objects are viewed from few and sparse viewpoints before the grasping action, leading to the generation of wrong or inaccurate grasp poses. We propose a novel grasping strategy, named 3DSGrasp, that predicts the missing geometry from the partial PCD to produce reliable grasp poses. Our proposed PCD completion network is a Transformer-based encoder-decoder network with an Offset-Attention layer. Our network is inherently invariant to the object pose and point's permutation, which generates PCDs that are geometrically consistent and completed properly. Experiments on a wide range of partial PCD show that 3DSGrasp outperforms the best state-of-the-art method on PCD completion tasks and largely improves the grasping success rate in real-world scenarios. The code and dataset are available at: <a href="https://github.com/NunoDuarte/3DSGrasp">https://github.com/NunoDuarte/3DSGrasp</a>
+		  </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carrousel1.png" alt="MY ALT TEXT" style="display: block; margin: 0 auto;"/>
+        <h2 class="subtitle has-text-centered">
+          Overall pipeline
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carrousel2.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Network Architecture
+       </h2>
+     </div>
+      <div class="item">
+	  <center>
+        <!-- Your image here -->
+        <img src="static/images/carrousel3.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Attention Layers
+       </h2>
+	  </center>
+     </div>
+     <div class="item">
+	  <center>
+        <!-- Your image here -->
+        <img src="static/images/carrousel4.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Qualitative results
+       </h2>
+	  </center>
+     </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+<!-- Youtube video -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <!-- Youtube embed code here -->
+            <iframe src="https://www.youtube.com/embed/i_v4EX_Nkls" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@INPROCEEDINGS{10160350,
+  author={Mohammadi, Seyed S. and Duarte, Nuno F. and Dimou, Dimitrios and Wang, Yiming and Taiana, Matteo and Morerio, Pietro and Dehban, Atabak and Moreno, Plinio and Bernardino, Alexandre and Del Bue, Alessio and Santos-Victor, José},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={3DSGrasp: 3D Shape-Completion for Robotic Grasp}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={3815-3822},
+  keywords={Geometry;Point cloud compression;Three-dimensional displays;Shape;Robot vision systems;Grasping;Transformers},
+  doi={10.1109/ICRA48891.2023.10160350}}
+</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was adapted from <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which in turn was inspired by <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            I express my gratitude to the creators of the mentioned repos. Please visit their websites if you would like to use their work. This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
